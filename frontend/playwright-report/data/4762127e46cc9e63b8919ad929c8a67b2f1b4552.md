@@ -1,0 +1,49 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e2]:
+  - generic [ref=e3]:
+    - banner [ref=e4]:
+      - generic [ref=e6]:
+        - link "SkillSwap" [ref=e8] [cursor=pointer]:
+          - /url: /
+          - img [ref=e10]
+          - generic [ref=e13]: SkillSwap
+        - navigation [ref=e14]:
+          - link "Browse Skills" [ref=e15] [cursor=pointer]:
+            - /url: /skills
+            - img [ref=e16]
+            - generic [ref=e18]: Browse Skills
+          - link "Find Mentors" [ref=e19] [cursor=pointer]:
+            - /url: /mentors
+            - img [ref=e20]
+            - generic [ref=e22]: Find Mentors
+          - link "Roadmap" [ref=e23] [cursor=pointer]:
+            - /url: /roadmap
+            - img [ref=e24]
+            - generic [ref=e26]: Roadmap
+        - generic [ref=e28]:
+          - link "Log in" [ref=e29] [cursor=pointer]:
+            - /url: /login
+          - link "Sign up" [ref=e30] [cursor=pointer]:
+            - /url: /signup
+    - main [ref=e31]:
+      - generic [ref=e34]:
+        - complementary [ref=e37]:
+          - generic [ref=e38]:
+            - heading "Categories" [level=3] [ref=e39]
+            - list [ref=e40]:
+              - listitem [ref=e41]:
+                - button "All" [ref=e42] [cursor=pointer]
+        - generic [ref=e44]:
+          - heading "Browse Skills" [level=1] [ref=e45]
+          - paragraph [ref=e46]: Discover new skills to learn or find opportunities to teach.
+    - contentinfo [ref=e72]:
+      - generic [ref=e73]:
+        - generic [ref=e74]: © 2026 SkillSwap
+        - generic [ref=e75]:
+          - text: Built with ❤️ —
+          - link "Docs" [ref=e76] [cursor=pointer]:
+            - /url: /
+  - region "Notifications Alt+T"
+```

@@ -1,0 +1,113 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 
+  DESIGN SYSTEM (FULL PRO)
+  ========================
+  Fonts: 'Outfit' (Headings), 'Inter' (Body)
+  Colors: Deep Violet-Indigo gradients, Glass effects
+*/
+
+@layer base {
+  body {
+    @apply bg-gray-50 text-gray-900 antialiased font-sans;
+    /* Animated Gradient Mesh Background */
+    background-color: #f8fafc;
+    background-image:
+      radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.15) 0px, transparent 50%),
+      radial-gradient(at 100% 0%, rgba(168, 85, 247, 0.15) 0px, transparent 50%),
+      radial-gradient(at 100% 100%, rgba(236, 72, 153, 0.1) 0px, transparent 50%);
+    background-attachment: fixed;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: 'Outfit', sans-serif;
+    @apply tracking-tight text-gray-900;
+  }
+}
+
+@layer components {
+
+  /* Glassmorphism Utilities */
+  .glass-panel {
+    @apply bg-white/70 backdrop-blur-xl border border-white/50 shadow-xl shadow-indigo-500/5;
+  }
+
+  .glass-card {
+    @apply bg-white/60 backdrop-blur-lg border border-white/40 shadow-sm hover:shadow-lg hover:bg-white/80 transition-all duration-300;
+  }
+
+  /* Gradient Text */
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 via-violet-600 to-fuchsia-600;
+  }
+
+  /* Modern Buttons */
+  .btn-primary {
+    @apply px-6 py-2.5 bg-gray-900 text-white rounded-xl font-medium shadow-lg hover:shadow-xl hover:-translate-y-0.5 active:scale-95 transition-all duration-300 border border-gray-800/50;
+    background-image: linear-gradient(to bottom right, rgba(255, 255, 255, 0.1), transparent);
+  }
+
+  .btn-secondary {
+    @apply px-6 py-2.5 bg-white text-gray-700 rounded-xl font-medium shadow-sm hover:shadow-md border border-gray-200 hover:-translate-y-0.5 active:scale-95 transition-all duration-300;
+  }
+
+  .btn-gradient {
+    @apply px-6 py-2.5 text-white rounded-xl font-medium shadow-lg shadow-indigo-500/20 hover:shadow-indigo-500/30 hover:-translate-y-0.5 active:scale-95 transition-all duration-300;
+    background-image: linear-gradient(135deg, #4f46e5 0%, #7c3aed 50%, #db2777 100%);
+  }
+
+  /* Form Elements */
+  .input-field {
+    @apply w-full px-4 py-3 bg-white/50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 focus:bg-white transition-all outline-none backdrop-blur-sm;
+  }
+
+  .badge {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border;
+  }
+
+  /* Containers */
+  .container-max {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-gray-300 rounded-full hover:bg-gray-400;
+}
+
+/* Animation Utilities */
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-20px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+}
