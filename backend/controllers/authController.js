@@ -13,16 +13,22 @@ const LEGACY_CUTOFF_DATE = new Date('2026-01-18T00:00:00Z'); // Fixed deployment
 const saltRounds = parseInt(process.env.BCRYPT_SALT_ROUNDS || '10', 10);
 
 const cookieOptions = (maxAgeMs) => {
-  const secure = process.env.COOKIE_SECURE === 'true';
-  const sameSite = secure ? 'none' : 'lax';
-  const domain = process.env.COOKIE_DOMAIN && process.env.COOKIE_DOMAIN.length ? process.env.COOKIE_DOMAIN : undefined;
+  const isProduction = process.env.NODE_ENV === 'production';
+  const secure = isProduction || process.env.COOKIE_SECURE === 'true';
+  const sameSite = isProduction ? 'none' : 'lax'; // Cross-site requires None
+
   const opts = {
     httpOnly: true,
     secure,
     sameSite,
     maxAge: maxAgeMs
   };
-  if (domain) opts.domain = domain;
+
+  // Only set domain if explicitly provided, otherwise let browser infer it
+  if (process.env.COOKIE_DOMAIN) {
+    opts.domain = process.env.COOKIE_DOMAIN;
+  }
+
   return opts;
 };
 
