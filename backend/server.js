@@ -85,6 +85,7 @@ app.use('/api/ml', mlRoutes); // ML-powered skill recommendations
 app.use('/api/ml', analyticsRoutes); // ML analytics and predictions
 app.use('/api/rv-verification', rvVerificationRoutes); // RV College verification
 app.use('/api/roadmaps', require('./routes/roadmapRoutes')); // Dynamic Roadmaps
+app.use('/api/seed', require('./routes/seed')); // TEMPORARY: Seed DB
 
 // ----------------------------------------------
 // SOCKET.IO (authenticated real-time chat)
