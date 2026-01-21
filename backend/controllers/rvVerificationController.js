@@ -306,4 +306,35 @@ exports.getStatus = async (req, res, next) => {
   }
 };
 
+/**
+ * DEBUG ONLY: Get OTP for a specific email
+ * Useful when email service is not configured
+ */
+exports.getDebugOtp = async (req, res, next) => {
+  try {
+    const { email } = req.params;
+    if (!email) return res.status(400).json({ message: 'Email required' });
+
+    console.log('Fetching Debug OTP for:', email);
+
+    const verification = await RVVerification.findOne({
+      rvEmail: email.toLowerCase().trim()
+    }).sort({ updatedAt: -1 });
+
+    if (!verification) {
+      return res.status(404).json({ message: 'No verification record found for this email' });
+    }
+
+    res.json({
+      rvEmail: verification.rvEmail,
+      otp: verification.otp,
+      status: verification.status,
+      expiresAt: verification.otpExpiresAt,
+      isExpired: new Date() > verification.otpExpiresAt
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
 
