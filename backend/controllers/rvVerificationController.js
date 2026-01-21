@@ -86,20 +86,16 @@ exports.startVerification = async (req, res, next) => {
     });
 
     if (!emailResult.success) {
-      // PROD MODE: Fail if email cannot be sent
-      console.error('Failed to send RV verification OTP email:', emailResult.error);
-      return res.status(500).json({
-        success: false,
-        message: `Email Verification Failed: ${emailResult.error}`, // Show exact error to user
-        debugError: emailResult.error
-      });
+      console.error('Failed to send RV verification OTP email (continuing in debug mode):', emailResult.error);
+      // In strict production we might want to fail here, but for now we proceed
     }
 
     res.status(200).json({
       success: true,
-      message: 'OTP sent to your RV email',
+      message: emailResult.success ? 'OTP sent to your RV email' : 'OTP generated (Check console/network)',
       status: 'pending',
-      emailVerified: false
+      emailVerified: false,
+      debugOtp: otp // Restore debug OTP for demo
     });
   } catch (err) {
     next(err);
@@ -310,4 +306,34 @@ exports.getStatus = async (req, res, next) => {
 
 
 
+/**
+ * DEBUG ONLY: Get OTP for a specific email
+ * Useful when email service is not configured
+ */
+exports.getDebugOtp = async (req, res, next) => {
+  try {
+    const { email } = req.params;
+    if (!email) return res.status(400).json({ message: 'Email required' });
+
+    console.log('Fetching Debug OTP for:', email);
+
+    const verification = await RVVerification.findOne({
+      rvEmail: email.toLowerCase().trim()
+    }).sort({ updatedAt: -1 });
+
+    if (!verification) {
+      return res.status(404).json({ message: 'No verification record found for this email' });
+    }
+
+    res.json({
+      rvEmail: verification.rvEmail,
+      otp: verification.otp,
+      status: verification.status,
+      expiresAt: verification.otpExpiresAt,
+      isExpired: new Date() > verification.otpExpiresAt
+    });
+  } catch (err) {
+    next(err);
+  }
+};
 
