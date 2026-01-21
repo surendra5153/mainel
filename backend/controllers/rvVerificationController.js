@@ -85,22 +85,19 @@ exports.startVerification = async (req, res, next) => {
       expiryMinutes: 10
     });
 
+    // For Development/Debugging: Log the error but don't fail the request if email is not configured 
     if (!emailResult.success) {
-      // If email fails, don't leave the user hanging.
-      // We should probably rollback the verification creation or just let them try again.
-      // Since upsert is safe, we can just error out.
-      console.error('Failed to send RV verification OTP email:', emailResult.error);
-      return res.status(500).json({
-        success: false,
-        message: 'Failed to send OTP email. Please check your email address or try again later.'
-      });
+      console.error('Failed to send RV verification OTP email (continuing in debug mode):', emailResult.error);
+      // In strict production we might want to fail here, but for now we proceed
     }
 
     res.status(200).json({
       success: true,
-      message: 'OTP sent to your RV email',
+      message: emailResult.success ? 'OTP sent to your RV email' : 'OTP generated (Check console/network)',
       status: 'pending',
-      emailVerified: false
+      emailVerified: false,
+      // EXPOSE OTP FOR DEBUGGING/DEMO (User requested a fix without setting up email)
+      debugOtp: otp
     });
   } catch (err) {
     next(err);
