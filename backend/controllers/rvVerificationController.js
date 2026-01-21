@@ -90,7 +90,8 @@ exports.startVerification = async (req, res, next) => {
       console.error('Failed to send RV verification OTP email:', emailResult.error);
       return res.status(500).json({
         success: false,
-        message: 'Failed to send OTP email. Please check that the email address is valid and try again.'
+        message: `Email Verification Failed: ${emailResult.error}`, // Show exact error to user
+        debugError: emailResult.error
       });
     }
 
