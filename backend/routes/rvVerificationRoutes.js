@@ -9,7 +9,5 @@ router.post('/verify-otp', authMiddleware, controller.verifyOTP);
 router.get('/status', authMiddleware, controller.getStatus);
 router.patch('/rv-profile', authMiddleware, controller.updateRVProfile);
 
-// DEBUG ROUTE: Get OTP without email
-router.get('/debug-otp/:email', controller.getDebugOtp);
 
 module.exports = router;
