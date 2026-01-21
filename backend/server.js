@@ -50,7 +50,12 @@ app.use(cookieParser());
 // CORS for frontend
 app.use(
   cors({
-    origin: ["http://localhost:5173", "http://localhost:5174"], // Frontend URLs (dev ports)
+    origin: [
+      "http://localhost:5173",
+      "http://localhost:5174",
+      "https://mainel-gilt.vercel.app",
+      "https://mainel-gilt.vercel.app/"
+    ],
     credentials: true,
   })
 );
@@ -85,7 +90,7 @@ app.use('/api/roadmaps', require('./routes/roadmapRoutes')); // Dynamic Roadmaps
 // SOCKET.IO (authenticated real-time chat)
 // ----------------------------------------------
 const server = http.createServer(app);
-const corsOrigin = process.env.SOCKET_IO_CORS_ORIGIN || 'http://localhost:5173';
+const corsOrigin = process.env.SOCKET_IO_CORS_ORIGIN || 'http://localhost:5173,https://mainel-gilt.vercel.app';
 const io = new Server(server, {
   cors: {
     origin: corsOrigin.split(',').map(o => o.trim()),
